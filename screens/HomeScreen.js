@@ -10,82 +10,80 @@ const characters = [
 
 function CharacterCard({ color, name, emoji }) {
   return (
-    <View style={{ alignItems: 'center', marginHorizontal: 8 }}>
-      <View style={{ width: 70, height: 90, backgroundColor: color, borderRadius: 16, justifyContent: 'center', alignItems: 'center', borderWidth: 3, borderColor: '#000', marginBottom: 8 }}>
-        <Text style={{ fontSize: 40 }}>{emoji}</Text>
+    <View style={{ alignItems: 'center', marginHorizontal: 6, flex: 1 }}>
+      <View style={{ width: '100%', aspectRatio: 0.7, backgroundColor: color, borderRadius: 12, justifyContent: 'center', alignItems: 'center', borderWidth: 3, borderColor: '#000', marginBottom: 6 }}>
+        <Text style={{ fontSize: 36 }}>{emoji}</Text>
       </View>
-      <Text style={{ color: '#1f2937', fontSize: 11, fontWeight: '700' }}>{name}</Text>
+      <Text style={{ color: '#1f2937', fontSize: 9, fontWeight: '700', textAlign: 'center' }}>{name}</Text>
     </View>
   );
 }
 
 export default function HomeScreen({ onStart, score, level }) {
-  const { width } = Dimensions.get('window');
-  const isLandscape = width > 600;
-
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#b78ef5', paddingHorizontal: 12, paddingVertical: 8 }}>
-      {/* Pharmacy Storefront Header */}
-      <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8 }}>
-        {/* Left Menu */}
-        <View style={{ width: 50, alignItems: 'center', gap: 8, paddingTop: 16 }}>
-          <View style={{ width: 40, height: 40, backgroundColor: '#fff', borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 20 }}>📋</Text>
-          </View>
-          <View style={{ width: 40, height: 40, backgroundColor: '#fff', borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 20 }}>⚙️</Text>
-          </View>
-          <View style={{ width: 40, height: 40, backgroundColor: '#fff', borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 20 }}>📊</Text>
-          </View>
+    <View style={{ flex: 1, backgroundColor: '#b78ef5', flexDirection: 'row', padding: 12, gap: 12 }}>
+      {/* Left Sidebar - Menu Icons */}
+      <View style={{ width: 50, alignItems: 'center', gap: 10, paddingTop: 12 }}>
+        <View style={{ width: 44, height: 44, backgroundColor: '#fff', borderRadius: 8, borderWidth: 3, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontSize: 22 }}>📋</Text>
+        </View>
+        <View style={{ width: 44, height: 44, backgroundColor: '#fff', borderRadius: 8, borderWidth: 3, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontSize: 22 }}>👤</Text>
+        </View>
+        <View style={{ width: 44, height: 44, backgroundColor: '#fff', borderRadius: 8, borderWidth: 3, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontSize: 22 }}>📊</Text>
+        </View>
+      </View>
+
+      {/* Main Content Area */}
+      <View style={{ flex: 1, gap: 12 }}>
+        {/* Top Section: Cross Symbol */}
+        <View style={{ backgroundColor: '#fff', borderRadius: 8, borderWidth: 4, borderColor: '#000', padding: 16, alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
+          <Text style={{ fontSize: 60, fontWeight: 'bold', color: '#9333ea' }}>✚</Text>
         </View>
 
-        {/* Main Storefront */}
-        <View style={{ flex: 1, marginLeft: 8 }}>
-          {/* Awning */}
-          <View style={{ backgroundColor: '#9333ea', height: 20, borderRadius: 4, marginBottom: 4, borderWidth: 2, borderColor: '#000', justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 12 }}>✚ MedsSaga Pharmacy ✚</Text>
+        {/* Middle Section: Game Buttons */}
+        <View style={{ flexDirection: 'row', gap: 12, flex: 1 }}>
+          {/* NEW GAME Button */}
+          <TouchableOpacity 
+            onPress={onStart}
+            style={{ flex: 1, backgroundColor: '#fff', borderRadius: 12, borderWidth: 4, borderColor: '#000', justifyContent: 'center', alignItems: 'center', paddingVertical: 16, position: 'relative' }}
+          >
+            <Text style={{ fontSize: 32, fontWeight: '900', color: '#9333ea', letterSpacing: 2 }}>NEW</Text>
+            <Text style={{ fontSize: 32, fontWeight: '900', color: '#9333ea', letterSpacing: 2 }}>GAME</Text>
+            {/* Rope decorations */}
+            <View style={{ position: 'absolute', left: 8, top: '20%', width: 16, height: 16, backgroundColor: '#d97757', borderRadius: 8 }} />
+            <View style={{ position: 'absolute', right: 8, top: '20%', width: 16, height: 16, backgroundColor: '#d97757', borderRadius: 8 }} />
+          </TouchableOpacity>
+
+          {/* LOAD Button */}
+          <TouchableOpacity 
+            style={{ flex: 1, backgroundColor: '#fff', borderRadius: 12, borderWidth: 4, borderColor: '#000', justifyContent: 'center', alignItems: 'center', paddingVertical: 16, position: 'relative' }}
+          >
+            <Text style={{ fontSize: 32, fontWeight: '900', color: '#9333ea', letterSpacing: 2 }}>LOAD</Text>
+            {/* Rope decorations */}
+            <View style={{ position: 'absolute', left: 8, top: '20%', width: 16, height: 16, backgroundColor: '#d97757', borderRadius: 8 }} />
+            <View style={{ position: 'absolute', right: 8, top: '20%', width: 16, height: 16, backgroundColor: '#d97757', borderRadius: 8 }} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Bottom Section: Characters */}
+        <View style={{ backgroundColor: '#fff', borderRadius: 8, borderWidth: 4, borderColor: '#000', padding: 12, flexDirection: 'row', gap: 6, minHeight: 140 }}>
+          {characters.map((char) => (
+            <CharacterCard key={char.name} color={char.color} name={char.name} emoji={char.emoji} />
+          ))}
+        </View>
+
+        {/* Stats Bar */}
+        <View style={{ flexDirection: 'row', gap: 12 }}>
+          <View style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, borderWidth: 3, borderColor: '#000', paddingVertical: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ color: '#9333ea', fontWeight: '900', fontSize: 13 }}>Level: {level}</Text>
           </View>
-
-          {/* Storefront with characters */}
-          <View style={{ backgroundColor: '#f3e8ff', borderRadius: 12, borderWidth: 3, borderColor: '#000', padding: 12, minHeight: 200 }}>
-            {/* Top text buttons */}
-            <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12, justifyContent: 'center' }}>
-              <View style={{ backgroundColor: '#fff', paddingHorizontal: 16, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
-                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>NEW GAME</Text>
-              </View>
-              <View style={{ backgroundColor: '#fff', paddingHorizontal: 16, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
-                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>LOAD</Text>
-              </View>
-            </View>
-
-            {/* Characters in a row */}
-            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 4, marginBottom: 12 }}>
-              {characters.map((char) => (
-                <CharacterCard key={char.name} color={char.color} name={char.name} emoji={char.emoji} />
-              ))}
-            </View>
-
-            {/* Stats */}
-            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 12, marginBottom: 12 }}>
-              <View style={{ backgroundColor: '#fff', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
-                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>Level: {level}</Text>
-              </View>
-              <View style={{ backgroundColor: '#fff', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
-                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>Score: {score}</Text>
-              </View>
-            </View>
-
-            {/* Start Button */}
-            <TouchableOpacity
-              onPress={onStart}
-              style={{ backgroundColor: '#9333ea', borderRadius: 12, paddingVertical: 12, alignItems: 'center', borderWidth: 2, borderColor: '#000' }}
-            >
-              <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>► START ADVENTURE ◄</Text>
-            </TouchableOpacity>
+          <View style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, borderWidth: 3, borderColor: '#000', paddingVertical: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ color: '#9333ea', fontWeight: '900', fontSize: 13 }}>Score: {score}</Text>
           </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
