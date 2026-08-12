@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedsSaga HomeScreen - SVG Characters</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Arial Black', Arial, sans-serif;
+            background: linear-gradient(135deg, #d8b4fe 0%, #c4b5fd 100%);
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container { 
+            width: 100%;
+            max-width: 1400px;
+        }
+        .title {
+            text-align: center;
+            font-size: 48px;
+            color: #6b21a8;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .screen-wrapper {
+            background: #b78ef5;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 4px solid #000;
+            display: flex;
+            gap: 16px;
+            min-height: 600px;
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            width: 70px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            padding-top: 10px;
+        }
+        .menu-icon {
+            width: 54px;
+            height: 54px;
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* MAIN CONTENT */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        /* CROSS BOX */
+        .cross-box {
+            background: #fff;
+            border: 4px solid #000;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            color: #9333ea;
+            font-weight: 900;
+            min-height: 120px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* WINDOW/BLINDS */
+        .window-blinds {
+            background: #8cc4ff;
+            border: 3px solid #000;
+            border-radius: 8px;
+            height: 40px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .blind-line {
+            height: 2px;
+            background: #fff;
+        }
+        
+        /* BUTTONS SECTION */
+        .buttons-row {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+        }
+        .game-btn {
+            flex: 1;
+            background: #fff;
+            border: 4px solid #000;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 36px;
+            font-weight: 900;
+            color: #9333ea;
+            position: relative;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+        .game-btn:hover {
+            transform: translateY(-2px);
+        }
+        .rope {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #d97757;
+            border-radius: 50%;
+            border: 2px solid #8b4513;
+        }
+        .rope-left-top {
+            left: 16px;
+            top: 14px;
+        }
+        .rope-right-top {
+            right: 16px;
+            top: 14px;
+        }
+        
+        /* CHARACTERS */
+        .characters-box {
+            background: #fff;
+            border: 4px solid #000;
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            gap: 4px;
+            flex: 1;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .character {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .char-avatar {
+            width: 100%;
+            aspect-ratio: 0.6;
+            border: 3px solid #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        .char-name {
+            font-size: 10px;
+            font-weight: 900;
+            color: #1f2937;
+        }
+        .nina { background: #ffb0d0; }
+        .milo { background: #8cc4ff; }
+        .lina { background: #ffd46e; }
+        .noah { background: #b4a0ff; }
+        
+        /* SVG Character */
+        .char-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* STATS BAR */
+        .stats {
+            display: flex;
+            gap: 10px;
+            height: 55px;
+        }
+        .stat-item {
+            flex: 1;
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 900;
+            color: #9333ea;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">🏥 MedsSaga - With SVG Characters</div>
+        
+        <div class="screen-wrapper">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <div class="menu-icon">📋</div>
+                <div class="menu-icon">👤</div>
+                <div class="menu-icon">📊</div>
+            </div>
+            
+            <!-- MAIN CONTENT -->
+            <div class="main">
+                <!-- Cross Symbol -->
+                <div class="cross-box">✚</div>
+                
+                <!-- Window/Blinds -->
+                <div class="window-blinds">
+                    <div class="blind-line"></div>
+                    <div class="blind-line"></div>
+                    <div class="blind-line"></div>
+                    <div class="blind-line"></div>
+                </div>
+                
+                <!-- Buttons -->
+                <div class="buttons-row">
+                    <div class="game-btn" style="font-size: 32px;">
+                        <div class="rope rope-left-top"></div>
+                        <div style="text-align: center; line-height: 1.2;">
+                            NEW<br>GAME
+                        </div>
+                        <div class="rope rope-right-top"></div>
+                    </div>
+                    
+                    <div class="game-btn" style="font-size: 40px;">
+                        <div class="rope rope-left-top"></div>
+                        LOAD
+                        <div class="rope rope-right-top"></div>
+                    </div>
+                </div>
+                
+                <!-- Characters with SVG -->
+                <div class="characters-box">
+                    <!-- NINA -->
+                    <div class="character">
+                        <div class="char-avatar nina">
+                            <svg class="char-svg" viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Legs -->
+                                <rect x="28" y="85" width="8" height="20" fill="#000"/>
+                                <rect x="44" y="85" width="8" height="20" fill="#000"/>
+                                <!-- Shoes -->
+                                <ellipse cx="32" cy="105" rx="6" ry="4" fill="#000"/>
+                                <ellipse cx="48" cy="105" rx="6" ry="4" fill="#000"/>
+                                <!-- Body - Medical Coat -->
+                                <rect x="20" y="50" width="40" height="35" rx="8" fill="#fff" stroke="#000" stroke-width="2"/>
+                                <!-- Buttons -->
+                                <circle cx="40" cy="60" r="2" fill="#9333ea"/>
+                                <circle cx="40" cy="70" r="2" fill="#9333ea"/>
+                                <circle cx="40" cy="80" r="2" fill="#9333ea"/>
+                                <!-- Arms -->
+                                <rect x="12" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <rect x="60" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <!-- Neck -->
+                                <rect x="36" y="46" width="8" height="5" fill="#f4a483"/>
+                                <!-- Head -->
+                                <circle cx="40" cy="35" r="12" fill="#f4a483" stroke="#000" stroke-width="2"/>
+                                <!-- Hair -->
+                                <path d="M 28 30 Q 28 20 40 20 Q 52 20 52 30" fill="#000"/>
+                                <ellipse cx="28" cy="32" rx="4" ry="6" fill="#000"/>
+                                <ellipse cx="52" cy="32" rx="4" ry="6" fill="#000"/>
+                                <!-- Eyes -->
+                                <circle cx="36" cy="33" r="2" fill="#000"/>
+                                <circle cx="44" cy="33" r="2" fill="#000"/>
+                                <!-- Mouth -->
+                                <path d="M 37 38 Q 40 40 43 38" stroke="#000" stroke-width="1.5" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="char-name">Nina</div>
+                    </div>
+
+                    <!-- MILO -->
+                    <div class="character">
+                        <div class="char-avatar milo">
+                            <svg class="char-svg" viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Legs -->
+                                <rect x="28" y="85" width="8" height="20" fill="#000"/>
+                                <rect x="44" y="85" width="8" height="20" fill="#000"/>
+                                <!-- Shoes -->
+                                <ellipse cx="32" cy="105" rx="6" ry="4" fill="#000"/>
+                                <ellipse cx="48" cy="105" rx="6" ry="4" fill="#000"/>
+                                <!-- Body - Medical Coat -->
+                                <rect x="20" y="50" width="40" height="35" rx="8" fill="#fff" stroke="#000" stroke-width="2"/>
+                                <!-- Buttons -->
+                                <circle cx="40" cy="60" r="2" fill="#9333ea"/>
+                                <circle cx="40" cy="70" r="2" fill="#9333ea"/>
+                                <circle cx="40" cy="80" r="2" fill="#9333ea"/>
+                                <!-- Arms -->
+                                <rect x="12" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <rect x="60" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <!-- Neck -->
+                                <rect x="36" y="46" width="8" height="5" fill="#f4a483"/>
+                                <!-- Head -->
+                                <circle cx="40" cy="35" r="12" fill="#f4a483" stroke="#000" stroke-width="2"/>
+                                <!-- Hair -->
+                                <path d="M 30 25 Q 28 18 40 18 Q 52 18 50 25" fill="#000"/>
+                                <polygon points="40,20 45,27 35,27" fill="#000"/>
+                                <!-- Eyes -->
+                                <path d="M 35 32 Q 36 34 37 32" stroke="#000" stroke-width="1.5" fill="none"/>
+                                <path d="M 43 32 Q 44 34 45 32" stroke="#000" stroke-width="1.5" fill="none"/>
+                                <!-- Smile -->
+                                <path d="M 37 38 Q 40 42 43 38" stroke="#000" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="char-name">Milo</div>
+                    </div>
+
+                    <!-- LINA -->
+                    <div class="character">
+                        <div class="char-avatar lina">
+                            <svg class="char-svg" viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Legs -->
+                                <rect x="28" y="85" width="8" height="20" fill="#000"/>
+                                <rect x="44" y="85" width="8" height="20" fill="#000"/>
+                                <!-- Shoes -->
+                                <ellipse cx="32" cy="105" rx="6" ry="4" fill="#000"/>
+                                <ellipse cx="48" cy="105" rx="6" ry="4" fill="#000"/>
+                                <!-- Body - Blue Coat -->
+                                <rect x="20" y="50" width="40" height="35" rx="8" fill="#4a90e2" stroke="#000" stroke-width="2"/>
+                                <!-- Buttons -->
+                                <circle cx="40" cy="60" r="2" fill="#fff"/>
+                                <circle cx="40" cy="70" r="2" fill="#fff"/>
+                                <circle cx="40" cy="80" r="2" fill="#fff"/>
+                                <!-- Arms -->
+                                <rect x="12" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <rect x="60" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <!-- Neck -->
+                                <rect x="36" y="46" width="8" height="5" fill="#f4a483"/>
+                                <!-- Head -->
+                                <circle cx="40" cy="35" r="12" fill="#f4a483" stroke="#000" stroke-width="2"/>
+                                <!-- Hair -->
+                                <path d="M 30 28 Q 28 15 40 15 Q 52 15 50 28" fill="#000"/>
+                                <ellipse cx="28" cy="35" rx="3" ry="8" fill="#000"/>
+                                <ellipse cx="52" cy="35" rx="3" ry="8" fill="#000"/>
+                                <!-- Eyes -->
+                                <circle cx="36" cy="33" r="2" fill="#000"/>
+                                <circle cx="44" cy="33" r="2" fill="#000"/>
+                                <!-- Mouth -->
+                                <path d="M 37 38 Q 40 40 43 38" stroke="#000" stroke-width="1.5" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="char-name">Lina</div>
+                    </div>
+
+                    <!-- NOAH -->
+                    <div class="character">
+                        <div class="char-avatar noah">
+                            <svg class="char-svg" viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Legs -->
+                                <rect x="28" y="85" width="8" height="20" fill="#000"/>
+                                <rect x="44" y="85" width="8" height="20" fill="#000"/>
+                                <!-- Shoes -->
+                                <ellipse cx="32" cy="105" rx="6" ry="4" fill="#000"/>
+                                <ellipse cx="48" cy="105" rx="6" ry="4" fill="#000"/>
+                                <!-- Body - Blue Coat -->
+                                <rect x="20" y="50" width="40" height="35" rx="8" fill="#5b7eff" stroke="#000" stroke-width="2"/>
+                                <!-- Buttons -->
+                                <circle cx="40" cy="60" r="2" fill="#fff"/>
+                                <circle cx="40" cy="70" r="2" fill="#fff"/>
+                                <circle cx="40" cy="80" r="2" fill="#fff"/>
+                                <!-- Arms -->
+                                <rect x="12" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <rect x="60" y="55" width="8" height="18" rx="4" fill="#f4a483"/>
+                                <!-- Neck -->
+                                <rect x="36" y="46" width="8" height="5" fill="#f4a483"/>
+                                <!-- Head -->
+                                <circle cx="40" cy="35" r="12" fill="#f4a483" stroke="#000" stroke-width="2"/>
+                                <!-- Hair -->
+                                <path d="M 30 24 Q 28 16 40 16 Q 52 16 50 24" fill="#000"/>
+                                <polygon points="40,18 48,25 32,25" fill="#000"/>
+                                <!-- Eyes -->
+                                <circle cx="36" cy="33" r="2" fill="#000"/>
+                                <circle cx="44" cy="33" r="2" fill="#000"/>
+                                <!-- Smile -->
+                                <path d="M 37 39 Q 40 42 43 39" stroke="#000" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="char-name">Noah</div>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats">
+                    <div class="stat-item">Level: 1</div>
+                    <div class="stat-item">Score: 0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
