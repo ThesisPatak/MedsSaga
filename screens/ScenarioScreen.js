@@ -6,20 +6,22 @@ const scenarios = [
     id: 1,
     title: 'Runny Nose Rescue',
     description: 'Nina has a mild cold. Choose the safest first step before medicine.',
+    character: '👩‍⚕️',
     options: [
-      { text: 'Finish, Rest, and Drink Water', isCorrect: true, feedback: 'Great! Many cold symptoms improve with rest and fluids first.' },
-      { text: 'Take a strong painkiller immediately', isCorrect: false, feedback: 'Painkillers can help fever, but not as the best first step for a mild cold.' },
-      { text: 'Use cough syrup designed for adults', isCorrect: false, feedback: 'That can be too strong and unnecessary for these symptoms.' }
+      { text: 'Rest, Drink Water', isCorrect: true, feedback: 'Great! Rest & fluids help first.' },
+      { text: 'Strong painkiller', isCorrect: false, feedback: 'Not the best first step.' },
+      { text: 'Adult cough syrup', isCorrect: false, feedback: 'Too strong for mild cold.' }
     ]
   },
   {
     id: 2,
     title: 'Sprain Relief',
-    description: 'Milo twisted his ankle playing and wants relief. Pick the safest OTC support.',
+    description: 'Milo twisted his ankle. Pick the safest OTC support.',
+    character: '👨‍⚕️',
     options: [
-      { text: 'Topical pain gel and ice packs', isCorrect: true, feedback: 'Correct – topical gel and ice help pain while limiting side effects.' },
-      { text: 'Heartburn tablets', isCorrect: false, feedback: 'Heartburn tablets do not help sprain pain or swelling.' },
-      { text: 'Antibiotic cream', isCorrect: false, feedback: 'No cut or infection is present, so this is not needed.' }
+      { text: 'Topical gel & ice packs', isCorrect: true, feedback: 'Correct – best for sprains!' },
+      { text: 'Heartburn tablets', isCorrect: false, feedback: 'Wrong medicine type.' },
+      { text: 'Antibiotic cream', isCorrect: false, feedback: 'No cut or infection.' }
     ]
   }
 ];
@@ -49,53 +51,67 @@ export default function ScenarioScreen({ onComplete, onBack, level }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 18, backgroundColor: '#f4efff' }}>
-      <View style={{ borderRadius: 24, backgroundColor: '#7c3aed', padding: 20, marginBottom: 18 }}>
-        <Text style={{ color: '#fff', fontSize: 24, fontWeight: '800' }}>Scenario {index + 1}</Text>
-        <Text style={{ color: '#ded6ff', marginTop: 10, fontSize: 16 }}>{scenario.description}</Text>
-        <View style={{ marginTop: 16, flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View style={{ backgroundColor: '#ede9fe', borderRadius: 16, padding: 12, width: '48%' }}>
-            <Text style={{ color: '#5b21b6', fontWeight: '700' }}>Level</Text>
-            <Text style={{ color: '#4c1d95', fontSize: 20, fontWeight: '800' }}>{level}</Text>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#b78ef5', padding: 12 }}>
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+        {/* Main content */}
+        <View style={{ flex: 1 }}>
+          {/* Header */}
+          <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 2, borderColor: '#000', padding: 12, marginBottom: 12 }}>
+            <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 14 }}>Scenario {index + 1}: {scenario.title}</Text>
+            <Text style={{ color: '#6b21a8', fontSize: 12, marginTop: 4 }}>{scenario.description}</Text>
           </View>
-          <View style={{ backgroundColor: '#ede9fe', borderRadius: 16, padding: 12, width: '48%' }}>
-            <Text style={{ color: '#5b21b6', fontWeight: '700' }}>Score</Text>
-            <Text style={{ color: '#4c1d95', fontSize: 20, fontWeight: '800' }}>{score}</Text>
+
+          {/* Stats */}
+          <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
+            <View style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, padding: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+              <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 10 }}>Level: {level}</Text>
+            </View>
+            <View style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, padding: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+              <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 10 }}>Score: {score}</Text>
+            </View>
+          </View>
+
+          {/* Options */}
+          {scenario.options.map((option) => (
+            <TouchableOpacity
+              key={option.text}
+              onPress={() => chooseOption(option)}
+              style={{
+                backgroundColor: selected === option ? '#d8b4fe' : '#fff',
+                padding: 10,
+                borderRadius: 8,
+                marginBottom: 8,
+                borderWidth: 2,
+                borderColor: selected === option ? '#9333ea' : '#000'
+              }}
+            >
+              <Text style={{ color: '#6b21a8', fontSize: 12, fontWeight: '600' }}>{option.text}</Text>
+            </TouchableOpacity>
+          ))}
+
+          {/* Feedback */}
+          {selected && (
+            <View style={{ backgroundColor: '#fff', padding: 10, borderRadius: 8, marginVertical: 8, borderWidth: 2, borderColor: '#9333ea', marginBottom: 12 }}>
+              <Text style={{ color: '#9333ea', fontSize: 11, fontWeight: 'bold' }}>💡 {selected.feedback}</Text>
+            </View>
+          )}
+
+          {/* Navigation */}
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <TouchableOpacity onPress={onBack} style={{ flex: 1, backgroundColor: '#fff', padding: 10, borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+              <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 11 }}>← Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={nextScenario} style={{ flex: 1, backgroundColor: '#9333ea', padding: 10, borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+              <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 11 }}>{index + 1 < scenarios.length ? 'Next →' : 'Finish ✓'}</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </View>
 
-      {scenario.options.map((option) => (
-        <TouchableOpacity
-          key={option.text}
-          onPress={() => chooseOption(option)}
-          style={{
-            backgroundColor: selected === option ? '#d8b4fe' : '#ede9fe',
-            padding: 18,
-            borderRadius: 20,
-            marginBottom: 14,
-            borderWidth: selected === option ? 2 : 0,
-            borderColor: '#9333ea'
-          }}
-        >
-          <Text style={{ color: '#3c096c', fontSize: 16, fontWeight: '600' }}>{option.text}</Text>
-        </TouchableOpacity>
-      ))}
-
-      {selected && (
-        <View style={{ backgroundColor: '#fff', padding: 18, borderRadius: 20, marginVertical: 18, borderWidth: 1, borderColor: '#d8b4fe' }}>
-          <Text style={{ color: '#6b21a8', fontSize: 16, fontWeight: 'bold', marginBottom: 8 }}>Feedback</Text>
-          <Text style={{ color: '#4c1d95', fontSize: 15 }}>{selected.feedback}</Text>
+        {/* Character Display */}
+        <View style={{ width: 120, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', borderRadius: 12, borderWidth: 3, borderColor: '#000', paddingVertical: 16 }}>
+          <Text style={{ fontSize: 60, marginBottom: 8 }}>{scenario.character}</Text>
+          <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 10, textAlign: 'center' }}>{scenario.title}</Text>
         </View>
-      )}
-
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <TouchableOpacity onPress={onBack} style={{ backgroundColor: '#6d28d9', padding: 16, borderRadius: 18, width: '48%' }}>
-          <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '700' }}>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={nextScenario} style={{ backgroundColor: '#a855f7', padding: 16, borderRadius: 18, width: '48%' }}>
-          <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '700' }}>{index + 1 < scenarios.length ? 'Next' : 'Finish'}</Text>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );

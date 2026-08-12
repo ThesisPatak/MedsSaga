@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 const questions = [
   {
     question: 'Which OTC medicine is best for mild headache and fever?',
+    emoji: '🤕',
     answers: [
       { text: 'Ibuprofen', correct: true },
       { text: 'Cough drops', correct: false },
@@ -12,10 +13,11 @@ const questions = [
   },
   {
     question: 'What should you do before taking any OTC medicine?',
+    emoji: '📖',
     answers: [
       { text: 'Read the label', correct: true },
-      { text: 'Take twice as much for faster relief', correct: false },
-      { text: 'Mix with unknown herbs', correct: false }
+      { text: 'Take twice as much', correct: false },
+      { text: 'Mix with herbs', correct: false }
     ]
   }
 ];
@@ -44,41 +46,55 @@ export default function QuizScreen({ onComplete, onBack }) {
   const question = questions[current];
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 18, backgroundColor: '#f3ebff' }}>
-      <View style={{ borderRadius: 24, backgroundColor: '#8b5cf6', padding: 20, marginBottom: 18 }}>
-        <Text style={{ color: '#fff', fontSize: 24, fontWeight: '800' }}>Quiz Challenge</Text>
-        <Text style={{ color: '#e9d5ff', marginTop: 10, fontSize: 16 }}>{question.question}</Text>
-      </View>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#b78ef5', padding: 12 }}>
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+        {/* Main Quiz Content */}
+        <View style={{ flex: 1 }}>
+          {/* Question Header */}
+          <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 2, borderColor: '#000', padding: 12, marginBottom: 12 }}>
+            <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 13 }}>Question {current + 1}</Text>
+            <Text style={{ color: '#6b21a8', fontSize: 12, marginTop: 4, fontWeight: '600' }}>{question.question}</Text>
+          </View>
 
-      {question.answers.map((answer) => (
-        <TouchableOpacity
-          key={answer.text}
-          onPress={() => answerQuestion(answer)}
-          style={{
-            backgroundColor: selectedAnswer === answer ? '#d8b4fe' : '#ede9fe',
-            padding: 18,
-            borderRadius: 20,
-            marginBottom: 14,
-            borderWidth: selectedAnswer === answer ? 2 : 0,
-            borderColor: '#7c3aed'
-          }}
-        >
-          <Text style={{ color: '#4c1d95', fontSize: 16, fontWeight: '700' }}>{answer.text}</Text>
-        </TouchableOpacity>
-      ))}
+          {/* Answer Options */}
+          {question.answers.map((answer) => (
+            <TouchableOpacity
+              key={answer.text}
+              onPress={() => answerQuestion(answer)}
+              style={{
+                backgroundColor: selectedAnswer === answer ? '#d8b4fe' : '#fff',
+                padding: 10,
+                borderRadius: 8,
+                marginBottom: 8,
+                borderWidth: 2,
+                borderColor: selectedAnswer === answer ? '#9333ea' : '#000'
+              }}
+            >
+              <Text style={{ color: '#6b21a8', fontSize: 12, fontWeight: '600' }}>○ {answer.text}</Text>
+            </TouchableOpacity>
+          ))}
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 14 }}>
-        <TouchableOpacity onPress={onBack} style={{ backgroundColor: '#6d28d9', padding: 16, borderRadius: 18, width: '48%' }}>
-          <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '700' }}>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={nextQuestion} style={{ backgroundColor: '#7c3aed', padding: 16, borderRadius: 18, width: '48%' }}>
-          <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '700' }}>{current + 1 < questions.length ? 'Next' : 'Submit'}</Text>
-        </TouchableOpacity>
-      </View>
+          {/* Score Display */}
+          <View style={{ backgroundColor: '#fff', borderRadius: 8, padding: 10, marginVertical: 12, borderWidth: 2, borderColor: '#9333ea', alignItems: 'center' }}>
+            <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 11 }}>Score: {score}</Text>
+          </View>
 
-      <View style={{ marginTop: 20, backgroundColor: '#fff', borderRadius: 22, padding: 18, borderWidth: 1, borderColor: '#ddd6fe' }}>
-        <Text style={{ color: '#5b21b6', fontSize: 16, fontWeight: '700', marginBottom: 8 }}>Quiz Score</Text>
-        <Text style={{ color: '#4c1d95', fontSize: 20, fontWeight: '800' }}>{score}</Text>
+          {/* Navigation Buttons */}
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <TouchableOpacity onPress={onBack} style={{ flex: 1, backgroundColor: '#fff', padding: 10, borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+              <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 11 }}>← Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={nextQuestion} style={{ flex: 1, backgroundColor: '#9333ea', padding: 10, borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+              <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 11 }}>{current + 1 < questions.length ? 'Next →' : '✓ Done'}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Question Emoji Display */}
+        <View style={{ width: 120, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', borderRadius: 12, borderWidth: 3, borderColor: '#000', paddingVertical: 16 }}>
+          <Text style={{ fontSize: 60, marginBottom: 8 }}>{question.emoji}</Text>
+          <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 10, textAlign: 'center' }}>Quiz {current + 1}</Text>
+        </View>
       </View>
     </ScrollView>
   );

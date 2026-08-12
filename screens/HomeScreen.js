@@ -1,72 +1,90 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
 const characters = [
-  { name: 'Nina', color: '#ffb0d0' },
-  { name: 'Milo', color: '#8cc4ff' },
-  { name: 'Lina', color: '#ffd46e' },
-  { name: 'Noah', color: '#b4a0ff' }
+  { name: 'Nina', color: '#ffb0d0', emoji: '👩‍⚕️' },
+  { name: 'Milo', color: '#8cc4ff', emoji: '👨‍⚕️' },
+  { name: 'Lina', color: '#ffd46e', emoji: '👩‍⚕️' },
+  { name: 'Noah', color: '#b4a0ff', emoji: '👨‍⚕️' }
 ];
 
-function Avatar({ color, label }) {
+function CharacterCard({ color, name, emoji }) {
   return (
-    <View style={{ alignItems: 'center', width: 72 }}>
-      <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: color, justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <Text style={{ color: '#1f2937', fontWeight: 'bold' }}>{label[0]}</Text>
+    <View style={{ alignItems: 'center', marginHorizontal: 8 }}>
+      <View style={{ width: 70, height: 90, backgroundColor: color, borderRadius: 16, justifyContent: 'center', alignItems: 'center', borderWidth: 3, borderColor: '#000', marginBottom: 8 }}>
+        <Text style={{ fontSize: 40 }}>{emoji}</Text>
       </View>
-      <Text style={{ color: '#1f2937', fontSize: 12 }}>{label}</Text>
+      <Text style={{ color: '#1f2937', fontSize: 11, fontWeight: '700' }}>{name}</Text>
     </View>
   );
 }
 
 export default function HomeScreen({ onStart, score, level }) {
+  const { width } = Dimensions.get('window');
+  const isLandscape = width > 600;
+
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#efebff', padding: 16 }}>
-      <View style={{ borderRadius: 24, backgroundColor: '#6b46c1', padding: 18, marginBottom: 16, shadowColor: '#000', shadowOpacity: 0.12, shadowRadius: 16, elevation: 4 }}>
-        <Text style={{ color: '#fff', fontSize: 34, fontWeight: '900', letterSpacing: 1 }}>MedsSaga</Text>
-        <Text style={{ color: '#dcd6ff', marginTop: 8, fontSize: 16 }}>A playful pharmacy adventure for safe medicine decisions.</Text>
-      </View>
-
-      <View style={{ backgroundColor: '#fff', borderRadius: 24, padding: 18, marginBottom: 18 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 }}>
-          <View style={{ width: '48%', backgroundColor: '#ede9fe', borderRadius: 18, padding: 16 }}>
-            <Text style={{ color: '#5b21b6', fontSize: 14, fontWeight: '700', marginBottom: 10 }}>NEW GAME</Text>
-            <Text style={{ color: '#4c1d95', fontSize: 13 }}>Start your first quest.</Text>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#b78ef5', paddingHorizontal: 12, paddingVertical: 8 }}>
+      {/* Pharmacy Storefront Header */}
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8 }}>
+        {/* Left Menu */}
+        <View style={{ width: 50, alignItems: 'center', gap: 8, paddingTop: 16 }}>
+          <View style={{ width: 40, height: 40, backgroundColor: '#fff', borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 20 }}>📋</Text>
           </View>
-          <View style={{ width: '48%', backgroundColor: '#ede9fe', borderRadius: 18, padding: 16 }}>
-            <Text style={{ color: '#5b21b6', fontSize: 14, fontWeight: '700', marginBottom: 10 }}>LOAD</Text>
-            <Text style={{ color: '#4c1d95', fontSize: 13 }}>Continue your saved story.</Text>
+          <View style={{ width: 40, height: 40, backgroundColor: '#fff', borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 20 }}>⚙️</Text>
+          </View>
+          <View style={{ width: 40, height: 40, backgroundColor: '#fff', borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 20 }}>📊</Text>
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
-          <View style={{ backgroundColor: '#faf5ff', borderRadius: 18, flex: 1, padding: 14, marginRight: 8 }}>
-            <Text style={{ color: '#5b21b6', fontSize: 14, fontWeight: '700' }}>Level</Text>
-            <Text style={{ color: '#4c1d95', fontSize: 22, fontWeight: '800' }}>{level}</Text>
+        {/* Main Storefront */}
+        <View style={{ flex: 1, marginLeft: 8 }}>
+          {/* Awning */}
+          <View style={{ backgroundColor: '#9333ea', height: 20, borderRadius: 4, marginBottom: 4, borderWidth: 2, borderColor: '#000', justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 12 }}>✚ MedsSaga Pharmacy ✚</Text>
           </View>
-          <View style={{ backgroundColor: '#faf5ff', borderRadius: 18, flex: 1, padding: 14, marginLeft: 8 }}>
-            <Text style={{ color: '#5b21b6', fontSize: 14, fontWeight: '700' }}>Score</Text>
-            <Text style={{ color: '#4c1d95', fontSize: 22, fontWeight: '800' }}>{score}</Text>
+
+          {/* Storefront with characters */}
+          <View style={{ backgroundColor: '#f3e8ff', borderRadius: 12, borderWidth: 3, borderColor: '#000', padding: 12, minHeight: 200 }}>
+            {/* Top text buttons */}
+            <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12, justifyContent: 'center' }}>
+              <View style={{ backgroundColor: '#fff', paddingHorizontal: 16, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
+                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>NEW GAME</Text>
+              </View>
+              <View style={{ backgroundColor: '#fff', paddingHorizontal: 16, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
+                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>LOAD</Text>
+              </View>
+            </View>
+
+            {/* Characters in a row */}
+            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 4, marginBottom: 12 }}>
+              {characters.map((char) => (
+                <CharacterCard key={char.name} color={char.color} name={char.name} emoji={char.emoji} />
+              ))}
+            </View>
+
+            {/* Stats */}
+            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 12, marginBottom: 12 }}>
+              <View style={{ backgroundColor: '#fff', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
+                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>Level: {level}</Text>
+              </View>
+              <View style={{ backgroundColor: '#fff', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, borderWidth: 2, borderColor: '#9333ea' }}>
+                <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>Score: {score}</Text>
+              </View>
+            </View>
+
+            {/* Start Button */}
+            <TouchableOpacity
+              onPress={onStart}
+              style={{ backgroundColor: '#9333ea', borderRadius: 12, paddingVertical: 12, alignItems: 'center', borderWidth: 2, borderColor: '#000' }}
+            >
+              <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>► START ADVENTURE ◄</Text>
+            </TouchableOpacity>
           </View>
         </View>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 }}>
-          {characters.map((char) => (
-            <Avatar key={char.name} color={char.color} label={char.name} />
-          ))}
-        </View>
-
-        <TouchableOpacity
-          onPress={onStart}
-          style={{ backgroundColor: '#7c3aed', borderRadius: 18, paddingVertical: 16, alignItems: 'center' }}
-        >
-          <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Start Adventure</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ backgroundColor: '#ede9fe', borderRadius: 24, padding: 20, alignItems: 'center' }}>
-        <Text style={{ color: '#4c1d95', fontSize: 16, fontWeight: '700', marginBottom: 10 }}>Welcome to your pharmacy world</Text>
-        <Text style={{ color: '#574b90', fontSize: 14, textAlign: 'center' }}>Choose a new game or continue your journey with fun scenes, quizzes, and safe OTC decisions.</Text>
       </View>
     </ScrollView>
   );

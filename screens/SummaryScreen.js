@@ -3,32 +3,40 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 export default function SummaryScreen({ score, history, onRestart, onContinue }) {
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 18, backgroundColor: '#f4efff' }}>
-      <View style={{ borderRadius: 24, backgroundColor: '#7c3aed', padding: 22, marginBottom: 18 }}>
-        <Text style={{ color: '#fff', fontSize: 26, fontWeight: '800' }}>Adventure Summary</Text>
-        <Text style={{ color: '#e9d5ff', marginTop: 10, fontSize: 16 }}>You scored {score} points. Keep learning to become a MedsSaga hero!</Text>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#b78ef5', padding: 12 }}>
+      {/* Header */}
+      <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 2, borderColor: '#000', padding: 12, marginBottom: 12 }}>
+        <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 16 }}>🎉 Adventure Complete!</Text>
+        <Text style={{ color: '#6b21a8', fontSize: 12, marginTop: 6 }}>You scored {score} points. Great work!</Text>
       </View>
 
-      <View style={{ backgroundColor: '#fff', borderRadius: 24, padding: 18, marginBottom: 18, borderWidth: 1, borderColor: '#ddd6fe' }}>
+      {/* History Panel */}
+      <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 2, borderColor: '#000', padding: 12, marginBottom: 12 }}>
+        <Text style={{ color: '#9333va', fontWeight: 'bold', fontSize: 12, marginBottom: 8 }}>📋 Results</Text>
         {history.length > 0 ? (
           history.map((item, index) => (
-            <View key={`${item.scenario}-${index}`} style={{ marginBottom: 14 }}>
-              <Text style={{ color: '#4c1d95', fontSize: 16, fontWeight: '700' }}>{item.scenario}</Text>
-              <Text style={{ color: '#7c3aed', marginTop: 4 }}>{item.selected}</Text>
-              <Text style={{ color: item.result ? '#16a34a' : '#dc2626', marginTop: 4 }}>{item.result ? 'Correct' : 'Try again next time'}</Text>
+            <View key={`${item.scenario}-${index}`} style={{ marginBottom: 8, paddingBottom: 8, borderBottomWidth: 1, borderBottomColor: '#ddd6fe' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={{ color: '#6b21a8', fontSize: 11, fontWeight: '700', flex: 1 }}>{item.scenario}</Text>
+                <Text style={{ color: item.result ? '#16a34a' : '#dc2626', fontSize: 10, fontWeight: 'bold' }}>{item.result ? '✅' : '❌'}</Text>
+              </View>
+              <Text style={{ color: '#7c3aed', fontSize: 10, marginTop: 2 }}>{item.selected}</Text>
             </View>
           ))
         ) : (
-          <Text style={{ color: '#7c3aed' }}>No scenario history available yet.</Text>
+          <Text style={{ color: '#7c3aed', fontSize: 10 }}>No history yet.</Text>
         )}
       </View>
 
-      <TouchableOpacity onPress={onContinue} style={{ backgroundColor: '#8b5cf6', padding: 18, borderRadius: 20, marginBottom: 12 }}>
-        <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '800' }}>Continue Adventure</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={onRestart} style={{ backgroundColor: '#6d28d9', padding: 18, borderRadius: 20 }}>
-        <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '800' }}>Restart Game</Text>
-      </TouchableOpacity>
+      {/* Action Buttons */}
+      <View style={{ gap: 8 }}>
+        <TouchableOpacity onPress={onContinue} style={{ backgroundColor: '#9333ea', padding: 12, borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 12 }}>▶ Continue Adventure</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onRestart} style={{ backgroundColor: '#fff', padding: 12, borderRadius: 8, borderWidth: 2, borderColor: '#000', alignItems: 'center' }}>
+          <Text style={{ color: '#9333ea', fontWeight: 'bold', fontSize: 12 }}>🔄 Restart Game</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
